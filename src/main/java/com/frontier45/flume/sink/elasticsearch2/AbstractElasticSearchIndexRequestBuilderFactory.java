@@ -82,7 +82,8 @@ public abstract class AbstractElasticSearchIndexRequestBuilderFactory
         TimestampedEvent timestampedEvent = new TimestampedEvent(event);
         long timestamp = timestampedEvent.getTimestamp();
 
-        String indexName = getIndexName(realIndexPrefix, timestamp);
+        //String indexName = getIndexName(realIndexPrefix, timestamp);
+        String indexName = realIndexPrefix;
         prepareIndexRequest(request, indexName, realIndexType, timestampedEvent);
         return request;
     }
