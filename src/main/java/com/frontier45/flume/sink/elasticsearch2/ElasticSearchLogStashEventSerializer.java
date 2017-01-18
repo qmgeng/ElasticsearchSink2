@@ -18,6 +18,7 @@
  */
 package com.frontier45.flume.sink.elasticsearch2;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.apache.flume.Context;
 import org.apache.flume.Event;
@@ -25,11 +26,9 @@ import org.apache.flume.conf.ComponentConfiguration;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 

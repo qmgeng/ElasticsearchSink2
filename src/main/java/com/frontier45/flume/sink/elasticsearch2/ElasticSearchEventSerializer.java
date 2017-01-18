@@ -18,13 +18,13 @@
  */
 package com.frontier45.flume.sink.elasticsearch2;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-
 import org.apache.flume.Event;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.conf.ConfigurableComponent;
 import org.elasticsearch.common.io.BytesStream;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 /**
  * Interface for an event serializer which serializes the headers and body of an
@@ -32,17 +32,16 @@ import org.elasticsearch.common.io.BytesStream;
  * params required should be taken through this.
  */
 public interface ElasticSearchEventSerializer extends Configurable,
-    ConfigurableComponent {
+        ConfigurableComponent {
 
-  public static final Charset charset = Charset.defaultCharset();
+    public static final Charset charset = Charset.defaultCharset();
 
-  /**
-   * Return an {@link BytesStream} made up of the serialized flume event
-   * @param event
-   *          The flume event to serialize
-   * @return A {@link BytesStream} used to write to ElasticSearch
-   * @throws IOException
-   *           If an error occurs during serialization
-   */
-  abstract BytesStream getContentBuilder(Event event) throws IOException;
+    /**
+     * Return an {@link BytesStream} made up of the serialized flume event
+     *
+     * @param event The flume event to serialize
+     * @return A {@link BytesStream} used to write to ElasticSearch
+     * @throws IOException If an error occurs during serialization
+     */
+    abstract BytesStream getContentBuilder(Event event) throws IOException;
 }

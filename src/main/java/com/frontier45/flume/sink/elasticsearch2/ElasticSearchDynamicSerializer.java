@@ -18,57 +18,56 @@
  */
 package com.frontier45.flume.sink.elasticsearch2;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.conf.ComponentConfiguration;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
+import java.io.IOException;
+import java.util.Map;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+
 /**
  * Basic serializer that serializes the event body and header fields into
  * individual fields</p>
- *
+ * <p>
  * A best effort will be used to determine the content-type, if it cannot be
  * determined fields will be indexed as Strings
  */
 public class ElasticSearchDynamicSerializer implements
         ElasticSearchEventSerializer {
 
-  @Override
-  public void configure(Context context) {
-    // NO-OP...
-  }
-
-  @Override
-  public void configure(ComponentConfiguration conf) {
-    // NO-OP...
-  }
-
-  @Override
-  public XContentBuilder getContentBuilder(Event event) throws IOException {
-    XContentBuilder builder = jsonBuilder().startObject();
-    appendBody(builder, event);
-    appendHeaders(builder, event);
-    return builder;
-  }
-
-  private void appendBody(XContentBuilder builder, Event event)
-      throws IOException {
-    ContentBuilderUtil.appendField(builder, "body", event.getBody());
-  }
-
-  private void appendHeaders(XContentBuilder builder, Event event)
-      throws IOException {
-    Map<String, String> headers = event.getHeaders();
-    for (Map.Entry<String, String> entry : headers.entrySet()) {
-      ContentBuilderUtil.appendField(builder, entry.getKey(),
-              entry.getValue().getBytes(charset));
+    @Override
+    public void configure(Context context) {
+        // NO-OP...
     }
-  }
+
+    @Override
+    public void configure(ComponentConfiguration conf) {
+        // NO-OP...
+    }
+
+    @Override
+    public XContentBuilder getContentBuilder(Event event) throws IOException {
+        XContentBuilder builder = jsonBuilder().startObject();
+        appendBody(builder, event);
+        appendHeaders(builder, event);
+        return builder;
+    }
+
+    private void appendBody(XContentBuilder builder, Event event)
+            throws IOException {
+        ContentBuilderUtil.appendField(builder, "body", event.getBody());
+    }
+
+    private void appendHeaders(XContentBuilder builder, Event event)
+            throws IOException {
+        Map<String, String> headers = event.getHeaders();
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+            ContentBuilderUtil.appendField(builder, entry.getKey(),
+                    entry.getValue().getBytes(charset));
+        }
+    }
 
 }
